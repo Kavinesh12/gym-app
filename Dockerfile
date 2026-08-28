@@ -7,9 +7,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    libsqlite3-dev \
-    && docker-php-ext-install pdo_sqlite mbstring exif pcntl bcmath gd zip \
-    && rm -rf /var/lib/apt/lists/*
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -19,15 +17,12 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
-# Create SQLite database
 RUN mkdir -p database \
     && touch database/database.sqlite
 
-# Run Laravel migrations
 RUN php artisan migrate --force
 
-RUN chown -R www-data:www-data \
-    /var/www/html/storage \
+RUN chown -R www-data:www-data /var/www/html/storage \
     /var/www/html/bootstrap/cache \
     /var/www/html/database
 

@@ -21,6 +21,15 @@
                 </span>
             </div>
 
+            @if ($exercise->image)
+                <div class="mt-4">
+                    <img src="{{ Str::startsWith($exercise->image, ['http://', 'https://']) ? $exercise->image : asset($exercise->image) }}"
+                         alt="{{ $exercise->name }}"
+                         loading="lazy"
+                         class="w-full max-w-md rounded-lg shadow-sm mx-auto">
+                </div>
+            @endif
+
             @if ($exercise->equipment)
                 <p class="mt-4 text-sm text-gray-700"><strong>Equipment:</strong> {{ $exercise->equipment }}</p>
             @endif

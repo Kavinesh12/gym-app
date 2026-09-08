@@ -45,7 +45,7 @@ class ExerciseSeeder extends Seeder
                 ['name' => 'Incline Pec Deck', 'difficulty' => 'beginner', 'equipment' => 'Pec Deck Machine',
                     'description' => 'Machine fly variation isolating the upper chest.',
                     'instructions' => "1. Adjust machine arms to upper chest height.\n2. Sit upright.\n3. Bring arms together squeezing chest.\n4. Return slowly.",
-                    'image' => 'images/exercises/pec-deck-fly.jpg'],
+                    'image' => 'images/exercises/incline-pec-deck-fly.jpg'],
 
                 ['name' => 'Flat Bench Press', 'difficulty' => 'intermediate', 'equipment' => 'Barbell, Bench',
                     'description' => 'Classic compound press for overall chest mass.',
@@ -71,7 +71,7 @@ class ExerciseSeeder extends Seeder
                     'description' => 'Mid-level cable fly for constant tension on chest.',
                     'instructions' => "1. Set cables to chest height.\n2. Stand in middle, lean slightly forward.\n3. Pull handles together in arc.\n4. Squeeze and return.",
                     'image' => 'images/exercises/cable-chest-fly.jpg',],
-                ['name' => 'Pec Deck Fly', 'difficulty' => 'beginner', 'equipment' => 'Pec Deck Machine',
+                ['name' => 'Pec Deck Fly(Mid)', 'difficulty' => 'beginner', 'equipment' => 'Pec Deck Machine',
                     'description' => 'Machine fly for mid chest isolation.',
                     'instructions' => "1. Sit with back flat, arms on pads.\n2. Bring pads together squeezing chest.\n3. Return slowly with control.",
                     'image' => 'images/exercises/pec-deck-fly.jpg'],
@@ -107,7 +107,7 @@ class ExerciseSeeder extends Seeder
                 ['name' => 'Low Cable Crossover', 'difficulty' => 'intermediate', 'equipment' => 'Cable Machine',
                     'description' => 'Crossover variation targeting lower chest fibres.',
                     'instructions' => "1. Set cables to lowest position.\n2. Pull handles up and together crossing at chest height.\n3. Return with control.",
-                    'image' => 'images/exercises/cable-crossover.jpg'],
+                    'image' => 'images/exercises/lower-cable-crossover.jpg'],
             ],
 
             'Back' => [

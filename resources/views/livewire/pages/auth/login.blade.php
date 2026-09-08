@@ -18,12 +18,24 @@ new #[Layout('layouts.guest')] class extends Component
             'password' => ['required', 'string'],
         ]);
 
-        if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
-            throw ValidationException::withMessages([
-                'email' => 'No account found with these credentials. Please check your email or password.',
-            ]);
-        }
+        $user = \App\Models\User::where('email', $this->email)->first();
 
+logger()->info('LOGIN DIAGNOSTIC', [
+    'email' => $this->email,
+    'user_found' => $user !== null,
+    'password_matches' => $user
+        ? \Illuminate\Support\Facades\Hash::check($this->password, $user->password)
+        : false,
+]);
+
+if (!Auth::attempt(
+    ['email' => $this->email, 'password' => $this->password],
+    $this->remember
+)) {
+    throw ValidationException::withMessages([
+        'email' => 'No account found with these credentials. Please check your email or password.',
+    ]);
+}
         session()->regenerate();
         $this->redirect(route('dashboard', absolute: false), navigate: true);
     }

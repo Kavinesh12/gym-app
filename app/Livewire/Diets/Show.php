@@ -3,6 +3,7 @@
 namespace App\Livewire\Diets;
 
 use App\Models\DietPlan;
+use App\Models\NutritionFood;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -13,9 +14,18 @@ class Show extends Component
 {
     public DietPlan $dietPlan;
 
+    public string $nutritionTab = 'protein';
+
     public function mount(DietPlan $dietPlan)
     {
         $this->dietPlan = $dietPlan;
+    }
+
+    public function setNutritionTab(string $tab): void
+    {
+        if (in_array($tab, ['protein', 'carbs', 'fibre'], true)) {
+            $this->nutritionTab = $tab;
+        }
     }
 
     public function render()
@@ -24,6 +34,17 @@ class Show extends Component
             ->orderByRaw("FIELD(meal_type, 'breakfast', 'lunch', 'dinner', 'snack')")
             ->get();
 
-        return view('livewire.diets.show', compact('meals'));
+        $nutritionColumn = match ($this->nutritionTab) {
+            'carbs' => 'carbs_grams',
+            'fibre' => 'fibre_grams',
+            default => 'protein_grams',
+        };
+
+        $nutritionFoods = NutritionFood::query()
+            ->orderByDesc($nutritionColumn)
+            ->orderBy('name')
+            ->get();
+
+        return view('livewire.diets.show', compact('meals', 'nutritionFoods'));
     }
 }

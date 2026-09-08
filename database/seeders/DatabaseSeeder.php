@@ -14,9 +14,24 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $users = [
-            ['name' => 'Test User',  'email' => 'test@example.com',  'role' => 'registered', 'password' => 'password'],
-            ['name' => 'Coach Mike', 'email' => 'trainer@example.com','role' => 'trainer',    'password' => 'password'],
-            ['name' => 'Admin Anna', 'email' => 'admin@example.com',  'role' => 'admin',      'password' => 'password'],
+            [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'role' => 'user',
+                'password' => 'password',
+            ],
+            [
+                'name' => 'Coach Mike',
+                'email' => 'trainer@example.com',
+                'role' => 'trainer',
+                'password' => 'password',
+            ],
+            [
+                'name' => 'Admin Anna',
+                'email' => 'admin@example.com',
+                'role' => 'admin',
+                'password' => 'password',
+            ],
         ];
 
         foreach ($users as $u) {

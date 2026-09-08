@@ -16,38 +16,40 @@ new class extends Component
     }
 }; ?>
 
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
+<nav x-data="{ open: false }" style="background: var(--dark); border-bottom: 1px solid rgba(255,255,255,.08);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
+        <div class="flex justify-between h-16 items-center">
+            <div class="flex items-center">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" wire:navigate>
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
+                <a href="{{ route('dashboard') }}" wire:navigate style="font-family:'Bebas Neue',sans-serif; font-size:1.7rem; letter-spacing:3px; color:var(--white); text-decoration:none;">
+                    GYM<span style="color:var(--red);">PRO</span>
+                </a>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+                <div class="hidden space-x-8 sm:ms-10 sm:flex">
+                    <a href="{{ route('dashboard') }}" wire:navigate
+                       style="font-size:.78rem; letter-spacing:2px; text-transform:uppercase; font-weight:600; text-decoration:none; color:{{ request()->routeIs('dashboard') ? 'var(--white)' : 'var(--muted)' }}; border-bottom: 2px solid {{ request()->routeIs('dashboard') ? 'var(--red)' : 'transparent' }}; padding-bottom: 4px;">
                         {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('workouts.index')" :active="request()->routeIs('workouts.*') && !request()->routeIs('admin.*')" wire:navigate>
+                    </a>
+                    <a href="{{ route('workouts.index') }}" wire:navigate
+                       style="font-size:.78rem; letter-spacing:2px; text-transform:uppercase; font-weight:600; text-decoration:none; color:{{ request()->routeIs('workouts.*') && !request()->routeIs('admin.*') ? 'var(--white)' : 'var(--muted)' }}; border-bottom: 2px solid {{ request()->routeIs('workouts.*') && !request()->routeIs('admin.*') ? 'var(--red)' : 'transparent' }}; padding-bottom: 4px;">
                         {{ __('Workouts') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('diets.index')" :active="request()->routeIs('diets.*') && !request()->routeIs('admin.*')" wire:navigate>
+                    </a>
+                    <a href="{{ route('diets.index') }}" wire:navigate
+                       style="font-size:.78rem; letter-spacing:2px; text-transform:uppercase; font-weight:600; text-decoration:none; color:{{ request()->routeIs('diets.*') && !request()->routeIs('admin.*') ? 'var(--white)' : 'var(--muted)' }}; border-bottom: 2px solid {{ request()->routeIs('diets.*') && !request()->routeIs('admin.*') ? 'var(--red)' : 'transparent' }}; padding-bottom: 4px;">
                         {{ __('Diet Plans') }}
-                    </x-nav-link>
+                    </a>
                     @auth
                         @if (auth()->user()->isAdmin())
-                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')" wire:navigate>
+                            <a href="{{ route('admin.dashboard') }}" wire:navigate
+                               style="font-size:.78rem; letter-spacing:2px; text-transform:uppercase; font-weight:600; text-decoration:none; color:{{ request()->routeIs('admin.*') ? 'var(--white)' : 'var(--muted)' }}; border-bottom: 2px solid {{ request()->routeIs('admin.*') ? 'var(--red)' : 'transparent' }}; padding-bottom: 4px;">
                                 {{ __('Admin') }}
-                            </x-nav-link>
+                            </a>
                         @elseif (auth()->user()->isTrainer())
-                            <x-nav-link :href="route('trainer.dashboard')" :active="request()->routeIs('trainer.*')" wire:navigate>
+                            <a href="{{ route('trainer.dashboard') }}" wire:navigate
+                               style="font-size:.78rem; letter-spacing:2px; text-transform:uppercase; font-weight:600; text-decoration:none; color:{{ request()->routeIs('trainer.*') ? 'var(--white)' : 'var(--muted)' }}; border-bottom: 2px solid {{ request()->routeIs('trainer.*') ? 'var(--red)' : 'transparent' }}; padding-bottom: 4px;">
                                 {{ __('Trainer') }}
-                            </x-nav-link>
+                            </a>
                         @endif
                     @endauth
                 </div>
@@ -57,7 +59,7 @@ new class extends Component
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="app-btn-ghost inline-flex items-center px-3 py-2 text-sm rounded-md focus:outline-none transition ease-in-out duration-150" style="font-family:'Barlow',sans-serif; letter-spacing:1px;">
                             <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
 
                             <div class="ms-1">
@@ -85,7 +87,7 @@ new class extends Component
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md focus:outline-none transition duration-150 ease-in-out" style="color: var(--muted);">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -96,47 +98,45 @@ new class extends Component
     </div>
 
         <!-- Responsive Navigation Menu -->
-        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-            <div class="pt-2 pb-3 space-y-1">
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden" style="background: var(--dark);">
+            <div class="pt-2 pb-3 space-y-1 px-2">
+                <a href="{{ route('dashboard') }}" wire:navigate class="block px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wider" style="color: {{ request()->routeIs('dashboard') ? 'var(--white)' : 'var(--muted)' }};">
                     {{ __('Dashboard') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('workouts.index')" :active="request()->routeIs('workouts.*') && !request()->routeIs('admin.*')" wire:navigate>
+                </a>
+                <a href="{{ route('workouts.index') }}" wire:navigate class="block px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wider" style="color: {{ request()->routeIs('workouts.*') ? 'var(--white)' : 'var(--muted)' }};">
                     {{ __('Workouts') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('diets.index')" :active="request()->routeIs('diets.*') && !request()->routeIs('admin.*')" wire:navigate>
+                </a>
+                <a href="{{ route('diets.index') }}" wire:navigate class="block px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wider" style="color: {{ request()->routeIs('diets.*') ? 'var(--white)' : 'var(--muted)' }};">
                     {{ __('Diet Plans') }}
-                </x-responsive-nav-link>
+                </a>
                 @auth
                     @if (auth()->user()->isAdmin())
-                        <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')" wire:navigate>
+                        <a href="{{ route('admin.dashboard') }}" wire:navigate class="block px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wider" style="color: {{ request()->routeIs('admin.*') ? 'var(--white)' : 'var(--muted)' }};">
                             {{ __('Admin') }}
-                        </x-responsive-nav-link>
+                        </a>
                     @elseif (auth()->user()->isTrainer())
-                        <x-responsive-nav-link :href="route('trainer.dashboard')" :active="request()->routeIs('trainer.*')" wire:navigate>
+                        <a href="{{ route('trainer.dashboard') }}" wire:navigate class="block px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wider" style="color: {{ request()->routeIs('trainer.*') ? 'var(--white)' : 'var(--muted)' }};">
                             {{ __('Trainer') }}
-                        </x-responsive-nav-link>
+                        </a>
                     @endif
                 @endauth
             </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-3" style="border-top: 1px solid rgba(255,255,255,.08);">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800" x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
-                <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
+                <div class="font-medium text-base" style="color: var(--white);" x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
+                <div class="font-medium text-sm" style="color: var(--muted);">{{ auth()->user()->email }}</div>
             </div>
 
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile')" wire:navigate>
+            <div class="mt-3 space-y-1 px-2">
+                <a href="{{ route('profile') }}" wire:navigate class="block px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wider" style="color: var(--muted);">
                     {{ __('Profile') }}
-                </x-responsive-nav-link>
+                </a>
 
                 <!-- Authentication -->
-                <button wire:click="logout" class="w-full text-start">
-                    <x-responsive-nav-link>
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
+                <button wire:click="logout" class="w-full text-start block px-3 py-2 rounded-md text-sm font-semibold uppercase tracking-wider" style="color: var(--muted);">
+                    {{ __('Log Out') }}
                 </button>
             </div>
         </div>

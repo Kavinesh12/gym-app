@@ -41,8 +41,6 @@ RUN npm run build
 RUN mkdir -p database \
     && touch database/database.sqlite
 
-# Run Laravel migrations
-RUN php artisan migrate --force
 
 # Fix permissions
 RUN chown -R www-data:www-data \
@@ -57,6 +55,9 @@ RUN a2enmod rewrite
 COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Render uses port 80
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+ENTRYPOINT ["entrypoint.sh"]

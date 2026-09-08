@@ -277,7 +277,7 @@ class ExerciseSeeder extends Seeder
                     'image' => 'images/exercises/hammer-curl.jpg'],
             ],
 
-            'Core' => [
+            'Abs' => [
                 ['name' => 'Plank', 'difficulty' => 'beginner', 'equipment' => 'None',
                     'description' => 'Core stability hold.',
                     'instructions' => "1. Forearms on floor, body straight.\n2. Hold position without sagging hips.\n3. Breathe steadily.",

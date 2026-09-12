@@ -20,12 +20,14 @@ class DatabaseSeeder extends Seeder
                 'role' => 'user',
                 'password' => 'password',
             ],
+
             [
                 'name' => 'Coach Mike',
                 'email' => 'trainer@example.com',
                 'role' => 'trainer',
                 'password' => 'password',
             ],
+
             [
                 'name' => 'Admin Anna',
                 'email' => 'admin@example.com',
